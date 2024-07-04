@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post, Req, Res, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { RoleGuard } from 'src/global/role-guard/role/role.guard';
+import { UserRoleGuard } from 'src/users/guards/userRole.guard';
 import { AuthInterceptor } from 'src/users/intercptors/auth/auth.interceptor';
 import { LoginValidationPipe } from 'src/users/pipes/login-validation/login-validation.pipe';
 import { SigninValidationPipe } from 'src/users/pipes/signin-validation/signin-validation.pipe';
@@ -27,7 +28,7 @@ export class UserController {
       res.setHeader('Bearer',token).send()
    }
    @Get('/home') 
-   @UseGuards(RoleGuard)
+    @UseGuards(UserRoleGuard)
    userHome(@Req()req:CustomRequest) {
     
      return { message: 'This response has custom headers' };

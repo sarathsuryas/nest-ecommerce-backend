@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserSchema } from './controllers/auth/schemas/user.schema';
+import { UserSchema } from '../Model/user.schema';
 import { UsersService } from './users.service';
 import { UserController } from './controllers/user/user.controller';
 import { JwtModule } from '@nestjs/jwt';
@@ -9,7 +9,7 @@ const secretKey = process.env.JWT_SECRET;
 
 @Module({
   imports:[MongooseModule.forFeature([{name:"User",schema:UserSchema}]),
-  JwtModule.register({global: true, secret: secretKey , signOptions: { expiresIn: '2h' } })],
+  JwtModule.register({global: false, secret: secretKey , signOptions: { expiresIn: '2h' } })],
   providers:[UsersService],
   controllers:[UserController]
 })
